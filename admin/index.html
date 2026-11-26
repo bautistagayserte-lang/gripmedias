@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Administración — GRIP SPORTS</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://gripmedias-backend.onrender.com; form-action 'none'; base-uri 'none'">
+<meta name="referrer" content="no-referrer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<header class="top">
+  <span class="brand">GRIP SPORTS <small>Administración</small></span>
+  <div id="top-actions" hidden>
+    <span id="who" class="who"></span>
+    <button type="button" id="btn-logout" class="btn btn-ghost">Cerrar sesión</button>
+  </div>
+</header>
+
+<main>
+  <!-- LOGIN -->
+  <section id="view-login" class="card narrow" hidden>
+    <h1>Ingresar</h1>
+    <p class="muted">Acceso privado. Si no sos el administrador de la tienda, no podés continuar.</p>
+    <form id="login-form" autocomplete="on" novalidate>
+      <label for="username">Usuario</label>
+      <input id="username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="200" required>
+      <label for="password">Contraseña</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" maxlength="200" required>
+      <button type="submit" id="btn-login" class="btn">Ingresar</button>
+      <p id="login-msg" class="msg" role="alert" hidden></p>
+    </form>
+  </section>
+
+  <!-- PANEL (Etapa 1: solo sesión y actividad) -->
+  <section id="view-panel" hidden>
+    <div class="card">
+      <h1>Panel de administración</h1>
+      <p class="muted">Sesión iniciada. Se cierra sola tras 30 minutos sin actividad.</p>
+      <p>Vence como máximo: <strong id="expires">—</strong></p>
+      <div class="row">
+        <button type="button" id="btn-logout-all" class="btn btn-ghost">Cerrar todas las sesiones</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Próximas secciones</h2>
+      <ul class="soon">
+        <li>Pedidos <span class="tag">Próximamente</span></li>
+        <li>Productos y stock <span class="tag">Próximamente</span></li>
+        <li>Fotografías <span class="tag">Próximamente</span></li>
+        <li>Envíos y descuentos <span class="tag">Próximamente</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Últimos accesos</h2>
+      <p class="muted">Si ves un acceso que no reconocés, usá “Cerrar todas las sesiones” y cambiá la contraseña.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Fecha</th><th>Evento</th><th>IP</th></tr></thead>
+          <tbody id="activity-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <p id="global-msg" class="msg" role="status" hidden></p>
+</main>
+<script src="admin.js"></script>
+</body>
+</html>
