@@ -36,36 +36,105 @@
     </form>
   </section>
 
-  <!-- PANEL (Etapa 1: solo sesión y actividad) -->
+  <!-- PANEL -->
   <section id="view-panel" hidden>
-    <div class="card">
-      <h1>Panel de administración</h1>
-      <p class="muted">Sesión iniciada. Se cierra sola tras 30 minutos sin actividad.</p>
-      <p>Vence como máximo: <strong id="expires">—</strong></p>
-      <div class="row">
-        <button type="button" id="btn-logout-all" class="btn btn-ghost">Cerrar todas las sesiones</button>
+    <nav class="nav" aria-label="Secciones del panel">
+      <a href="#inicio" data-nav="home">Inicio</a>
+      <a href="#pedidos" data-nav="orders">Pedidos</a>
+    </nav>
+
+    <!-- INICIO -->
+    <div id="view-home">
+      <div class="card">
+        <h1>Panel de administración</h1>
+        <p class="muted">Sesión iniciada. Se cierra sola tras 30 minutos sin actividad.</p>
+        <p>Vence como máximo: <strong id="expires">—</strong></p>
+        <div class="row">
+          <button type="button" id="btn-logout-all" class="btn btn-ghost">Cerrar todas las sesiones</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Secciones</h2>
+        <ul class="soon">
+          <li><a href="#pedidos" class="link-strong">Pedidos</a> <span class="tag tag-live">Disponible</span></li>
+          <li>Productos y stock <span class="tag">Próximamente</span></li>
+          <li>Fotografías <span class="tag">Próximamente</span></li>
+          <li>Envíos y descuentos <span class="tag">Próximamente</span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Últimos accesos</h2>
+        <p class="muted">Si ves un acceso que no reconocés, usá “Cerrar todas las sesiones” y cambiá la contraseña.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Fecha</th><th>Evento</th><th>IP</th></tr></thead>
+            <tbody id="activity-body"></tbody>
+          </table>
+        </div>
       </div>
     </div>
 
-    <div class="card">
-      <h2>Próximas secciones</h2>
-      <ul class="soon">
-        <li>Pedidos <span class="tag">Próximamente</span></li>
-        <li>Productos y stock <span class="tag">Próximamente</span></li>
-        <li>Fotografías <span class="tag">Próximamente</span></li>
-        <li>Envíos y descuentos <span class="tag">Próximamente</span></li>
-      </ul>
+    <!-- LISTADO DE PEDIDOS -->
+    <div id="view-orders" hidden>
+      <div class="card">
+        <h1>Pedidos</h1>
+        <form id="orders-filters" class="filters" novalidate>
+          <div class="field grow">
+            <label for="f-q">Buscar</label>
+            <input id="f-q" type="search" maxlength="100" placeholder="Número, nombre, email o teléfono" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="f-payment">Pago</label>
+            <select id="f-payment">
+              <option value="">Todos</option>
+              <option value="paid">Pagado</option>
+              <option value="payment_pending">Pago pendiente</option>
+              <option value="pending">Sin pagar</option>
+              <option value="rejected">Rechazado</option>
+              <option value="cancelled">Cancelado</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-fulfillment">Preparación / envío</label>
+            <select id="f-fulfillment">
+              <option value="">Todos</option>
+              <option value="transfer_pending">Transferencia sin confirmar</option>
+              <option value="none">Sin preparar</option>
+              <option value="preparing">Preparando</option>
+              <option value="shipped">Enviado</option>
+              <option value="delivered">Entregado / Retirado</option>
+            </select>
+          </div>
+          <div class="field actions">
+            <button type="submit" class="btn btn-small">Buscar</button>
+            <button type="button" id="orders-clear" class="btn btn-small btn-ghost">Limpiar</button>
+          </div>
+        </form>
+        <p id="orders-count" class="muted"></p>
+        <p id="orders-msg" class="msg" role="alert" hidden></p>
+        <div class="table-wrap">
+          <table class="orders-table">
+            <thead>
+              <tr><th>Pedido</th><th>Fecha</th><th>Cliente</th><th>Total</th><th>Pago</th><th>Preparación / envío</th><th></th></tr>
+            </thead>
+            <tbody id="orders-body"></tbody>
+          </table>
+        </div>
+        <div class="pager">
+          <button type="button" id="orders-prev" class="btn btn-small btn-ghost">← Anterior</button>
+          <span id="orders-page" class="muted"></span>
+          <button type="button" id="orders-next" class="btn btn-small btn-ghost">Siguiente →</button>
+        </div>
+      </div>
     </div>
 
-    <div class="card">
-      <h2>Últimos accesos</h2>
-      <p class="muted">Si ves un acceso que no reconocés, usá “Cerrar todas las sesiones” y cambiá la contraseña.</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Fecha</th><th>Evento</th><th>IP</th></tr></thead>
-          <tbody id="activity-body"></tbody>
-        </table>
-      </div>
+    <!-- DETALLE DE UN PEDIDO -->
+    <div id="view-order" hidden>
+      <p><a href="#pedidos" class="link-strong">← Volver a pedidos</a></p>
+      <p id="order-msg" class="msg" role="alert" hidden></p>
+      <div id="order-detail"></div>
     </div>
   </section>
 
